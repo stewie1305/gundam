@@ -1,0 +1,8 @@
+
+{
+  "name": "GundamBase Hangar",
+  "description": "The ultimate destination for Gunpla builders and collectors, featuring a smart AI build assistant and a robust inventory management system.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
