@@ -123,12 +123,6 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                     >
                       Password
                     </label>
-                    <a
-                      className="text-primary hover:text-green-600 text-sm font-bold transition-colors"
-                      href="#"
-                    >
-                      Forgot Password?
-                    </a>
                   </div>
                   <div className="relative flex items-center">
                     <span className="absolute left-4 text-zinc-500 material-symbols-outlined">
@@ -143,6 +137,14 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                     />
+                  </div>
+                  <div className="flex justify-end">
+                    <a
+                      className="text-primary hover:text-green-600 text-sm font-bold transition-colors"
+                      href="#"
+                    >
+                      Forgot Password?
+                    </a>
                   </div>
                 </div>
 
@@ -167,7 +169,10 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                   </span>
                 </button>
 
-                <div className="text-center text-xs text-zinc-500 mt-2 font-mono italic"></div>
+                <div className="text-center text-xs text-zinc-500 mt-2 font-mono italic">
+                  Tip: Log in with an "admin" email to unlock the Commander
+                  Panel.
+                </div>
               </form>
 
               <div className="relative flex py-8 items-center">
@@ -178,18 +183,12 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                 <div className="flex-grow border-t border-zinc-200 dark:border-zinc-800"></div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <button className="flex items-center justify-center gap-3 h-12 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white font-medium">
+              <div className="flex flex-col gap-4">
+                <button className="flex items-center justify-center gap-3 h-12 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white font-medium w-full">
                   <span className="material-symbols-outlined text-blue-500">
                     google
                   </span>
                   Google
-                </button>
-                <button className="flex items-center justify-center gap-3 h-12 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white font-medium">
-                  <span className="material-symbols-outlined text-blue-800">
-                    facebook
-                  </span>
-                  Facebook
                 </button>
               </div>
             </div>

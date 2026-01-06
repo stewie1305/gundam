@@ -1,9 +1,8 @@
-
 export interface Product {
   id: string;
   name: string;
   series: string;
-  grade: 'HG' | 'RG' | 'MG' | 'PG' | 'EG';
+  grade: "HG" | "RG" | "MG" | "PG" | "EG";
   scale: string;
   price: number;
   rating: number;
@@ -13,10 +12,14 @@ export interface Product {
   hot?: boolean;
 }
 
+export interface CartItem extends Product {
+  quantity: number;
+}
+
 export interface Series {
   id: string;
   name: string;
-  timeline: string;
+  sub: string;
   image: string;
   tag: string;
 }
@@ -24,12 +27,17 @@ export interface Series {
 export interface User {
   id: string;
   name: string;
-  role: 'PILOT' | 'COMMANDER';
+  role: "PILOT" | "COMMANDER";
   avatar?: string;
 }
 
 export enum Page {
-  HOME = 'home',
-  LOGIN = 'login',
-  ADMIN = 'admin',
+  HOME = "home",
+  LOGIN = "login",
+  ADMIN = "admin",
+}
+
+export interface ChatMessage {
+  role: "user" | "model";
+  text: string;
 }
