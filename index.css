@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #00e054;
+  --primary-dark: #00b343;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00e054;
+}
+
+.text-shadow-glow {
+  text-shadow: 0 0 10px rgba(0, 224, 84, 0.5);
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Tactical HUD Animations */
+@keyframes hud-in {
+  0% {
+    transform: translate(-50%, -100%) scaleX(0.5);
+    opacity: 0;
+    filter: blur(10px);
+  }
+  60% {
+    transform: translate(-50%, 10%) scaleX(1.05);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  100% {
+    transform: translate(-50%, 0) scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes cart-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 224, 84, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(0, 224, 84, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 224, 84, 0);
+  }
+}
+
+.animate-hud-in {
+  animation: hud-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-cart-pulse {
+  animation: cart-pulse 0.6s ease-out forwards;
+}
+
+.hud-border {
+  clip-path: polygon(
+    0 0,
+    10% 0,
+    10% 2px,
+    0 2px,
+    0 10%,
+    2px 10%,
+    2px 0,
+    90% 0,
+    100% 0,
+    100% 10%,
+    98% 10%,
+    98% 2px,
+    90% 2px,
+    90% 0,
+    100% 90%,
+    100% 100%,
+    90% 100%,
+    90% 98%,
+    98% 98%,
+    98% 90%,
+    100% 90%,
+    10% 100%,
+    0 100%,
+    0 90%,
+    2px 90%,
+    2px 98%,
+    10% 98%,
+    10% 100%
+  );
+}

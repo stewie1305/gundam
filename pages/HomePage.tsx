@@ -1,5 +1,5 @@
 import React from "react";
-import { CATEGORIES, PRODUCTS } from "../constants";
+import { SERIES, PRODUCTS } from "../constants";
 import { ProductCard } from "../components/ProductCard";
 
 export const HomePage: React.FC = () => {
@@ -81,7 +81,8 @@ export const HomePage: React.FC = () => {
           </a>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {CATEGORIES.map((cat) => (
+          {/* Changed CATEGORIES to SERIES and cat.sub to cat.timeline */}
+          {SERIES.map((cat) => (
             <a
               key={cat.id}
               className="group relative overflow-hidden rounded-2xl bg-white dark:bg-card-dark shadow-md hover:shadow-primary/10 transition-all border border-transparent hover:border-primary/50"
@@ -95,7 +96,7 @@ export const HomePage: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
                 <div className="absolute bottom-0 left-0 p-5 w-full">
                   <p className="text-primary text-[10px] font-bold uppercase tracking-[0.2em] mb-1 opacity-80">
-                    {cat.sub}
+                    {cat.timeline}
                   </p>
                   <h3 className="text-white font-display font-black text-xl leading-tight uppercase italic">
                     {cat.name}

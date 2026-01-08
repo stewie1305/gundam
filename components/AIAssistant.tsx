@@ -1,14 +1,11 @@
-
-import React, { useState, useRef, useEffect } from 'react';
-// Fix: Correct import from geminiService
-import { getGunplaAdvice } from '../services/geminiService';
-// Fix: Correct import from types
-import { ChatMessage } from '../types';
+import React, { useState, useRef, useEffect } from "react";
+import { getBuildAdvice } from "../services/geminiService";
+import { ChatMessage } from "../types";
 
 export const AIAssistant: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -21,28 +18,28 @@ export const AIAssistant: React.FC = () => {
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
 
-    const userMsg: ChatMessage = { role: 'user', text: input };
-    const newMessages = [...messages, userMsg];
-    setMessages(newMessages);
-    setInput('');
+    const userMsg: ChatMessage = { role: "user", text: input };
+    setMessages((prev) => [...prev, userMsg]);
+    setInput("");
     setIsLoading(true);
 
     try {
-      const stream = await getGunplaAdvice(newMessages);
-      let fullText = '';
-      setMessages(prev => [...prev, { role: 'model', text: '' }]);
-
-      for await (const chunk of stream) {
-        // Fix: Access chunk.text property
-        fullText += chunk.text || '';
-        setMessages(prev => {
-          const updated = [...prev];
-          updated[updated.length - 1].text = fullText;
-          return updated;
-        });
-      }
+      const response = await getBuildAdvice(input);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "model",
+          text: response || "I'm having trouble connecting to the network.",
+        },
+      ]);
     } catch (err) {
-      setMessages(prev => [...prev, { role: 'model', text: "Sorry, my comms are jammed. Please try again later." }]);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "model",
+          text: "Sorry, my comms are jammed. Please try again later.",
+        },
+      ]);
     } finally {
       setIsLoading(false);
     }
@@ -57,29 +54,43 @@ export const AIAssistant: React.FC = () => {
               <span className="material-symbols-outlined">smart_toy</span>
               <span>Gunpla Master AI</span>
             </div>
-            <button onClick={() => setIsOpen(false)} className="hover:rotate-90 transition-transform">
+            <button
+              onClick={() => setIsOpen(false)}
+              className="hover:rotate-90 transition-transform"
+            >
               <span className="material-symbols-outlined">close</span>
             </button>
           </div>
-          
-          <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-zinc-950/50">
+
+          <div
+            ref={scrollRef}
+            className="flex-1 overflow-y-auto p-4 space-y-4 bg-zinc-950/50"
+          >
             {messages.length === 0 && (
               <div className="text-zinc-500 text-sm text-center mt-10">
-                "Ready to begin your next build, pilot? Ask me about grades, series, or tools!"
+                "Ready to begin your next build, pilot? Ask me about grades,
+                series, or tools!"
               </div>
             )}
             {messages.map((m, i) => (
-              <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[85%] px-3 py-2 rounded-xl text-sm ${
-                  m.role === 'user' 
-                    ? 'bg-primary text-black font-medium' 
-                    : 'bg-zinc-800 text-white'
-                }`}>
+              <div
+                key={i}
+                className={`flex ${
+                  m.role === "user" ? "justify-end" : "justify-start"
+                }`}
+              >
+                <div
+                  className={`max-w-[85%] px-3 py-2 rounded-xl text-sm ${
+                    m.role === "user"
+                      ? "bg-primary text-black font-medium"
+                      : "bg-zinc-800 text-white"
+                  }`}
+                >
                   {m.text}
                 </div>
               </div>
             ))}
-            {isLoading && !messages[messages.length - 1]?.text && (
+            {isLoading && (
               <div className="flex justify-start">
                 <div className="bg-zinc-800 p-2 rounded-xl animate-pulse">
                   <div className="w-8 h-2 bg-zinc-600 rounded"></div>
@@ -93,11 +104,11 @@ export const AIAssistant: React.FC = () => {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+              onKeyDown={(e) => e.key === "Enter" && handleSend()}
               placeholder="Ask a master..."
               className="flex-1 bg-zinc-800 border-none rounded-lg text-sm text-white focus:ring-1 focus:ring-primary placeholder-zinc-600"
             />
-            <button 
+            <button
               onClick={handleSend}
               disabled={isLoading}
               className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-black hover:bg-primary-dark transition-colors"
@@ -107,7 +118,7 @@ export const AIAssistant: React.FC = () => {
           </div>
         </div>
       ) : (
-        <button 
+        <button
           onClick={() => setIsOpen(true)}
           className="w-14 h-14 bg-primary text-black rounded-full shadow-[0_0_20px_rgba(0,224,84,0.4)] flex items-center justify-center hover:scale-110 transition-transform group relative"
         >

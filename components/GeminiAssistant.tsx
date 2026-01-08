@@ -1,13 +1,17 @@
-
-import React, { useState, useRef, useEffect } from 'react';
-import { getBuildAdvice } from '../services/geminiService';
+import React, { useState, useRef, useEffect } from "react";
+import { getBuildAdvice } from "../services/geminiService";
 
 const GeminiAssistant: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<{role: 'user' | 'ai', text: string}[]>([
-    { role: 'ai', text: 'Hello, pilot! I am Haro. Need some Gunpla build tips or a recommendation?' }
+  const [messages, setMessages] = useState<
+    { role: "user" | "ai"; text: string }[]
+  >([
+    {
+      role: "ai",
+      text: "Hello, pilot! I am Haro. Need some Gunpla build tips or a recommendation?",
+    },
   ]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -23,12 +27,18 @@ const GeminiAssistant: React.FC = () => {
     if (!input.trim() || isLoading) return;
 
     const userMsg = input.trim();
-    setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
-    setInput('');
+    setMessages((prev) => [...prev, { role: "user", text: userMsg }]);
+    setInput("");
     setIsLoading(true);
 
     const aiResponse = await getBuildAdvice(userMsg);
-    setMessages(prev => [...prev, { role: 'ai', text: aiResponse || 'Sorry, I lost my connection to the hangar!' }]);
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: "ai",
+        text: aiResponse || "Sorry, I lost my connection to the hangar!",
+      },
+    ]);
     setIsLoading(false);
   };
 
@@ -41,19 +51,29 @@ const GeminiAssistant: React.FC = () => {
               <span className="material-symbols-outlined">smart_toy</span>
               <span className="font-display font-bold">Haro Assistant</span>
             </div>
-            <button onClick={() => setIsOpen(false)} className="hover:bg-black/10 rounded p-1">
+            <button
+              onClick={() => setIsOpen(false)}
+              className="hover:bg-black/10 rounded p-1"
+            >
               <span className="material-symbols-outlined">close</span>
             </button>
           </div>
-          
+
           <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-gray-900/50">
             {messages.map((m, i) => (
-              <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[80%] p-3 rounded-xl text-sm ${
-                  m.role === 'user' 
-                    ? 'bg-primary text-gray-900 rounded-tr-none' 
-                    : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-tl-none border border-gray-100 dark:border-gray-700'
-                }`}>
+              <div
+                key={i}
+                className={`flex ${
+                  m.role === "user" ? "justify-end" : "justify-start"
+                }`}
+              >
+                <div
+                  className={`max-w-[80%] p-3 rounded-xl text-sm ${
+                    m.role === "user"
+                      ? "bg-primary text-gray-900 rounded-tr-none"
+                      : "bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-tl-none border border-gray-100 dark:border-gray-700"
+                  }`}
+                >
                   {m.text}
                 </div>
               </div>
@@ -74,15 +94,15 @@ const GeminiAssistant: React.FC = () => {
 
           <div className="p-3 bg-white dark:bg-card-dark border-t border-gray-100 dark:border-gray-800">
             <div className="flex gap-2">
-              <input 
-                type="text" 
+              <input
+                type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                onKeyDown={(e) => e.key === "Enter" && handleSend()}
                 placeholder="Ask Haro..."
                 className="flex-1 bg-gray-100 dark:bg-gray-800 border-none rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary dark:text-white"
               />
-              <button 
+              <button
                 onClick={handleSend}
                 className="bg-primary text-gray-900 p-2 rounded-lg hover:bg-primary-dark transition-colors"
               >
@@ -92,7 +112,7 @@ const GeminiAssistant: React.FC = () => {
           </div>
         </div>
       ) : (
-        <button 
+        <button
           onClick={() => setIsOpen(true)}
           className="size-14 bg-primary text-gray-900 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform group relative overflow-hidden"
         >

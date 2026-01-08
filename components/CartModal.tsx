@@ -6,6 +6,7 @@ interface CartModalProps {
   onClose: () => void;
   items: CartItem[];
   onRemove: (id: string) => void;
+  onCheckout: () => void;
 }
 
 const CartModal: React.FC<CartModalProps> = ({
@@ -13,6 +14,7 @@ const CartModal: React.FC<CartModalProps> = ({
   onClose,
   items,
   onRemove,
+  onCheckout,
 }) => {
   if (!isOpen) return null;
 
@@ -54,7 +56,10 @@ const CartModal: React.FC<CartModalProps> = ({
             </div>
           ) : (
             items.map((item) => (
-              <div key={item.id} className="flex gap-4 group">
+              <div
+                key={item.id}
+                className="flex gap-4 group animate-in fade-in slide-in-from-right-4"
+              >
                 <div className="size-20 bg-gray-50 dark:bg-zinc-900 rounded-xl overflow-hidden flex-shrink-0 border border-gray-100 dark:border-zinc-800 p-2">
                   <img
                     src={item.image}
@@ -94,7 +99,10 @@ const CartModal: React.FC<CartModalProps> = ({
                 ${total.toFixed(2)}
               </span>
             </div>
-            <button className="w-full bg-primary hover:bg-primary-dark text-black font-black py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-3 italic uppercase tracking-tighter">
+            <button
+              onClick={onCheckout}
+              className="w-full bg-primary hover:bg-primary-dark text-black font-black py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-3 italic uppercase tracking-tighter hover:scale-[1.02] active:scale-95"
+            >
               Initiate Checkout
               <span className="material-symbols-outlined">rocket_launch</span>
             </button>

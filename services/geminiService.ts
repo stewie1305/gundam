@@ -1,12 +1,10 @@
 import { GoogleGenAI, Type } from "@google/genai";
-import { ChatMessage } from "../types";
 
-// Helper to create AI instance with current API Key
-const createAI = () => new GoogleGenAI({ apiKey: process.env.API_KEY || "" });
+// Always initialize GoogleGenAI as per guidelines
+const getAI = () => new GoogleGenAI({ apiKey: process.env.API_KEY });
 
-// Fix: Updated to follow standard generateContent pattern
 export const getBuildAdvice = async (userPrompt: string) => {
-  const ai = createAI();
+  const ai = getAI();
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
@@ -16,7 +14,7 @@ export const getBuildAdvice = async (userPrompt: string) => {
           "You are an expert Gunpla (Gundam Plastic Model) builder and shop assistant. Your name is 'Haro'. Provide concise, helpful build tips, model recommendations, and series information. Use a friendly tone with occasional Gundam references like 'Engaging systems!' or 'Target locked!'.",
       },
     });
-    // Fix: Access .text property instead of method
+    // Fix: Access the .text property directly (not a method)
     return response.text;
   } catch (error) {
     console.error("Gemini API Error:", error);
@@ -24,26 +22,8 @@ export const getBuildAdvice = async (userPrompt: string) => {
   }
 };
 
-// Fix: Added getGunplaAdvice for AIAssistant component (supports streaming)
-export const getGunplaAdvice = async (messages: ChatMessage[]) => {
-  const ai = createAI();
-  const contents = messages.map((m) => ({
-    role: m.role,
-    parts: [{ text: m.text }],
-  }));
-
-  return await ai.models.generateContentStream({
-    model: "gemini-3-flash-preview",
-    contents: contents,
-    config: {
-      systemInstruction:
-        "You are an expert Gunpla (Gundam Plastic Model) builder and shop assistant. Your name is 'Haro'. Provide concise, helpful build tips, model recommendations, and series information. Use a friendly tone with occasional Gundam references like 'Engaging systems!' or 'Target locked!'.",
-    },
-  });
-};
-
 export const generateGundamArt = async (prompt: string) => {
-  const ai = createAI();
+  const ai = getAI();
   try {
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash-image",
@@ -61,15 +41,12 @@ export const generateGundamArt = async (prompt: string) => {
       },
     });
 
-    // Fix: Correctly iterate through parts to find image data
-    if (response.candidates?.[0]?.content?.parts) {
-      for (const part of response.candidates[0].content.parts) {
-        if (part.inlineData) {
-          return `data:image/png;base64,${part.inlineData.data}`;
-        }
+    // Fix: Iterate through all parts to find the image part as per guidelines
+    for (const part of response.candidates[0].content.parts) {
+      if (part.inlineData) {
+        return `data:image/png;base64,${part.inlineData.data}`;
       }
     }
-    return null;
   } catch (error) {
     console.error("Image Gen Error:", error);
     return null;
@@ -77,7 +54,7 @@ export const generateGundamArt = async (prompt: string) => {
 };
 
 export const analyzeKit = async (kitName: string) => {
-  const ai = createAI();
+  const ai = getAI();
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
@@ -90,7 +67,7 @@ export const analyzeKit = async (kitName: string) => {
         },
       },
     });
-    // Fix: Access .text property
+    // Fix: Access the .text property directly
     return JSON.parse(response.text || "[]");
   } catch (error) {
     return [
@@ -105,13 +82,13 @@ export const generateProductDescription = async (
   name: string,
   grade: string
 ) => {
-  const ai = createAI();
+  const ai = getAI();
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
       contents: `Write a 2-sentence marketing description for a new ${grade} ${name} Gundam model kit.`,
     });
-    // Fix: Access .text property
+    // Fix: Access the .text property directly
     return response.text;
   } catch (error) {
     return "A high-quality mobile suit kit perfect for any collection.";

@@ -57,6 +57,47 @@ export const PRODUCTS: Product[] = [
     description: "The ferocious final form of the Barbatos mobile suit.",
   },
   {
+    id: "7",
+    name: "GodHand SPN-120 Ultimate Nipper",
+    series: "Premium Tools",
+    grade: "TOOL",
+    scale: "N/A",
+    price: 55.0,
+    rating: 5.0,
+    image:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuCi-U0h7Y90_D0O9G2z0K7U_S2T1U_L0Z2mP9o",
+    stock: 15,
+    hot: true,
+    description: "The gold standard for single-edged nippers.",
+  },
+  {
+    id: "8",
+    name: "Tamiya Panel Line Accent Color (Black)",
+    series: "Finishing Materials",
+    grade: "PAINT",
+    scale: "40ml",
+    price: 9.5,
+    rating: 4.9,
+    image:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuDW-P0h7Y90_D0O9G2z0K7U_S2T1U_L0Z2mP9o",
+    stock: 100,
+    description: "Easy-to-use enamel paint for panel lining.",
+  },
+  {
+    id: "9",
+    name: "Custom Weathering Service",
+    series: "Workshop Services",
+    grade: "SERVICE",
+    scale: "Variable",
+    price: 120.0,
+    rating: 4.8,
+    image:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuBo-U0h7Y90_D0O9G2z0K7U_S2T1U_L0Z2mP9o",
+    stock: 5,
+    description:
+      "Professional grade weathering and battle damage for your kit.",
+  },
+  {
     id: "5",
     name: "Sazabi Ver. Ka",
     series: "Char's Counterattack",
@@ -84,12 +125,11 @@ export const PRODUCTS: Product[] = [
   },
 ];
 
-// Renamed from SERIES to CATEGORIES to match application usage
-export const CATEGORIES: Series[] = [
+export const SERIES: Series[] = [
   {
     id: "uc",
     name: "Universal Century",
-    sub: "Original Series",
+    timeline: "Original Series",
     tag: "EFSF",
     image:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuBYXI-rZETRDn8ECWwp3g4QE0308T_UNA5WnLkLyh4zLzIQ56Z5s8kJgv1bgzGT9-XUYL_8Tly0cPyvcCE85bVJ3faXRQf5djNPu9oxkhm5OEEKVBnMwPF8P6-NyV8CNzIjvwhZA5jOXQu1MKG6cuAJm4UmQdOjsV4WzETC9GoVBcPyku-08jyvsWZ_joPY2COOkXNLR3_2oA72FZ5gjWYwD_OZWoQVAJNZH0KanyzbxQIWKptIG-lI8S2BxHJ0I8vtzSjIqKfZMyA",
@@ -97,7 +137,7 @@ export const CATEGORIES: Series[] = [
   {
     id: "ce",
     name: "Cosmic Era",
-    sub: "Gundam SEED",
+    timeline: "Gundam SEED",
     tag: "ZAFT",
     image:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuBabp8A5UuCCCn1FS937BDXMSNcfoq0VXMvf9gontVUcbG2XV4H2AMU29RdSXOVboTYFOM2JpgzIZJ0cy-2Ov3jjvRbj_VX8ZBndpSvmt1KWbQX9K4EIAm5ek8Y-72WmAbdr1bFVJYaoiGFKHZz7_T0GhaXjhkQCfLUM9l1RcVyAWFdLgPHqhQeGOC5bsul-lBORJsZxvMO1KamclSpcIJnBPZKFbc5v-mpVZo_iYotVRKDUfS-U68yeRp6LrlkrcZEZfSpxILngYw",
@@ -105,7 +145,7 @@ export const CATEGORIES: Series[] = [
   {
     id: "pd",
     name: "Post Disaster",
-    sub: "Iron-Blooded Orphans",
+    timeline: "Iron-Blooded Orphans",
     tag: "Tekkadan",
     image:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuAiJqVja61gxHFvGk7UYHQgr6aBu9udx3Ss-ITDs3vP6QwMFy0BA4Gop_qziG8pSUoBT2F1tShB1pSkT9YIDRulzShUwDRWaQTCIdKlePvXqDTz1n3jjoipQKB19Qjpa61KHxvuFAQOV3fJI0iB7iVc72d3EwzHeST-2I3N7-n2iRATr5A65e0nfT1O_fhpaHsDedIYPl4LGyB5dzAxXUDHf5dd6QOcouybpOvrg-znCKNDwWPmLJ8qtYaHUNo7HFgpjb1iTLwj-PI",
@@ -113,7 +153,7 @@ export const CATEGORIES: Series[] = [
   {
     id: "as",
     name: "Ad Stella",
-    sub: "Witch from Mercury",
+    timeline: "Ad Stella",
     tag: "Asticassia",
     image:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuCfAcTy5kR4vDG6sx0Ij0H5866K8qKozIW2vuO646f5IswmlflcSA2xNg0rrMfaKDnUos2iXg9y5FyOTm4vQP2quxYMs2sGhkyBB6iqZAWwlqRYTdJRE_L3CMHTF-6gSn9dPLd-pvjwu5hPlGBh2EtFyxR3rI9iVu7jcMcRoLoA0VCxI2hbmU1gme8soMwHX7t69nIC2q8BLulch08GZTAY-uY0HybyRuU5m_bM1Z8oMT8_SlrHR3AkYC_6tTAVPk8bGAQYO4fDYSc",
